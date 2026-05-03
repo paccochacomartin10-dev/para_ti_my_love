@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Carta para Inés</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Caveat&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: url("https://wallpapers.com/images/hd/1920-x-1080-flower-gdsi59io0hgsidm9.jpg") no-repeat center center/cover;
+}
+
+/* OSCURECER */
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+}
+
+/* SOBRE */
+.envelope {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    height: 220px;
+    background: #d2a679;
+    border-radius: 6px;
+    z-index: 2;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* TAPA */
+.flap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #b88c5a;
+    clip-path: polygon(0 0, 50% 50%, 100% 0);
+    transform-origin: top;
+    transition: 1s;
+}
+
+/* CARTA */
+.letter {
+    position: absolute;
+    width: 280px;
+    height: 200px;
+    background: linear-gradient(#fffdf8, #f5e6cc);
+    top: 20px;
+    left: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    transform: translateY(120px);
+    opacity: 0;
+    transition: 1s;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    border-radius: 5px;
+    overflow-y: auto;
+}
+
+/* TEXTO */
+.text {
+    font-family: 'Caveat', cursive;
+    font-size: 18px;
+    color: #3a2b2b;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+/* ABIERTO */
+.open .flap {
+    transform: rotateX(180deg);
+}
+
+.open .letter {
+    transform: translateY(-40px);
+    opacity: 1;
+}
+
+/* BOTÓN */
+.open-btn {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 25px;
+    border-radius: 30px;
+    border: none;
+    background: #c94f4f;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* ❤️ CORAZONES */
+.heart {
+    position: absolute;
+    color: #ff4d6d;
+    animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh) scale(1.5);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+<button onclick="window.location.href='index.html'" 
+style="position: absolute; top: 20px; left: 20px; padding: 10px 15px; border-radius: 20px; border: none; background: #ff4d6d; color: white; cursor: pointer; z-index: 5;">
+⬅ Volver
+</button>
+<body>
+
+<div class="overlay"></div>
+
+<div class="envelope">
+    <div class="flap"></div>
+
+    <div class="letter">
+        <div class="text" id="text"></div>
+    </div>
+</div>
+
+<button class="open-btn" onclick="openLetter()">💌 Abrir carta</button>
+
+<script>
+
+// TEXTO COMPLETO
+const message = `Para ti, que llegaste sin aviso
+y te volviste todo: ❤️
+
+Hola espero que estes bien jj esta carta te la escribo por que eres 
+importante para mí...
+
+Antes de conocerte, mi día a día era bastante rutinario,
+pero ahora, cuando pienso en mi día, siempre apareces tú. ❤️
+
+Eres esa persona que, sin hacer mucho ruido, logra cambiarlo todo.
+Tu forma de ser, tu sonrisa, incluso los pequeños detalles
+que tal vez ni notas... hacen que todo tenga más sentido.
+
+A veces me quedo pensando en lo increíble que es que dos personas
+puedan conectar así, sin razón aparente, y sin embargo, aquí estamos. ❤️
+
+Eres perfecta, y yo no tanto .
+Pero hay algo en ti que me hace sentir tranquilo, feliz,
+y con ganas de seguir compartiendo momentos,
+risas y hasta silencios contigo. ❤️
+
+Quiero que sepas que te valoro muchísimo.
+Que cada conversación, cada gesto y cada instante
+a tu lado se queda guardado en mí. ❤️
+
+Cada que te abrazo siento que el mundo se detiene por un momento,
+y eso es algo que no quiero perder nunca, y como no hablar de tus ojos 
+que me tienen completamente enamorado, y es que cada vez que los miro
+me pierdo en ellos , tu voz tu sonrisa tu forma de ser me tienen completamente enamorado, 
+y es que cada vez que te veo me enamoro más de ti, y es que cada vez que te veo me doy cuenta
+ de lo afortunado que soy de tenerte a mi lado, y lo muy enamorado que estoy de ti.
+ 
+te amo, y aunque a veces me cueste expresarlo con palabras, 
+y aunque no sea el más romántico del mundo, quiero que sepas que es verdad.
+
+
+
+Con cariño,
+Siempre yo tu messisito de temu :)❤️`;
+
+let i = 0;
+
+// EFECTO ESCRITURA
+function writeText() {
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(writeText, 20);
+    }
+}
+
+// ABRIR CARTA
+function openLetter() {
+    document.querySelector(".envelope").classList.add("open");
+    document.querySelector(".open-btn").style.display = "none";
+
+    setTimeout(writeText, 800);
+    startHearts();
+}
+
+// ❤️ MUCHOS CORAZONES DESDE ABAJO
+function startHearts() {
+    setInterval(() => {
+
+        for (let i = 0; i < 6; i++) {
+            let heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = window.innerHeight + "px";
+
+            heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+            heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+    }, 200);
+}
+
+</script>
+
+</body>
+</html>
